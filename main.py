@@ -1,8 +1,13 @@
 import discord
+import os
+from dotenv import load_dotenv
 from discord.ext import commands
 
-# Initialisation du bot avec un préfixe "!" pour les commandes
-bot = commands.Bot(command_prefix='!')
+load_dotenv()
+
+intents = discord.Intents.default()
+#intents.message_content = True
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 
 # Événement qui se déclenche lorsque le bot est prêt
@@ -22,5 +27,5 @@ async def hello(ctx):
     await ctx.send(f'Salut {ctx.author.mention}!')
 
 
-# Lancer le bot avec le token
-bot.run(DISCORD_TOKEN)
+token = os.getenv("DISCORD_TOKEN")
+bot.run(token)
